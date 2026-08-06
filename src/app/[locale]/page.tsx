@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Search, MapPin, CalendarCheck, Heart, ArrowRight, Sparkles, Leaf, Users, Star } from "lucide-react";
+import { Search, MapPin, ArrowRight, Sparkles, Leaf, Users, Star } from "lucide-react";
+import { LotusFlower, Mandala, MeditationPose, WarriorPose, TreePose } from "@/components/decorative/illustrations";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -40,12 +41,16 @@ export default async function HomePage() {
 
       {/* ── Hero ── */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#F5F0EB] via-[#EDEBE5] to-[#FAFAF8]">
-        {/* Organic water ripples */}
+        {/* Organic water ripples + lotus */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-[#7C9082]/10" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-[#7C9082]/10" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full border border-[#7C9082]/10" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] rounded-full border border-[#7C9082]/10" />
+          {/* Lotus flower decoration */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#7C9082]">
+            <LotusFlower className="w-64 h-64 md:w-80 md:h-80" opacity={0.12} />
+          </div>
           {/* Floating orbs */}
           <div className="absolute top-20 left-[15%] w-32 h-32 rounded-full bg-[#7C9082]/5 blur-2xl animate-pulse" />
           <div className="absolute top-40 right-[10%] w-48 h-48 rounded-full bg-[#C5B9A0]/10 blur-2xl" style={{ animationDelay: "2s" }} />
@@ -106,8 +111,12 @@ export default async function HomePage() {
       </section>
 
       {/* ── Philosophy ── */}
-      <section className="py-20 md:py-28">
-        <div className="container mx-auto px-4 max-w-2xl text-center">
+      <section className="py-20 md:py-28 relative overflow-hidden">
+        {/* Mandala background */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#7C9082] pointer-events-none">
+          <Mandala className="w-96 h-96 md:w-[500px] md:h-[500px]" opacity={0.06} />
+        </div>
+        <div className="container mx-auto px-4 max-w-2xl text-center relative z-10">
           <div className="mb-8 flex justify-center">
             <div className="w-16 h-16 rounded-full bg-[#7C9082]/5 flex items-center justify-center">
               <Sparkles className="h-7 w-7 text-[#7C9082]/60" />
@@ -165,60 +174,65 @@ export default async function HomePage() {
           </p>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Step 1 */}
-            <Card className="text-center border-0 shadow-md hover:shadow-xl transition-all duration-300 bg-white relative group">
-              <CardContent className="pt-10 pb-8">
-                <div className="w-16 h-16 rounded-2xl bg-[#7C9082]/5 flex items-center justify-center mx-auto mb-6 group-hover:bg-[#7C9082]/10 transition-colors">
-                  <MapPin className="h-8 w-8 text-[#7C9082]" />
-                </div>
-                <h3 className="text-xl font-medium mb-3 text-[#2D2D2D]">
-                  {t("step1Title")}
-                </h3>
-                <p className="text-[#6B7280] leading-relaxed font-light">
-                  {t("step1Desc")}
-                </p>
-                {/* Step number */}
-                <div className="absolute -top-4 -left-4 w-8 h-8 rounded-full bg-[#7C9082] text-white text-xs flex items-center justify-center font-medium shadow-md">
-                  1
-                </div>
-              </CardContent>
-            </Card>
+            {/* Step 1 — link to search */}
+            <Link href="/search" className="block">
+              <Card className="text-center border-0 shadow-md hover:shadow-xl transition-all duration-300 bg-white relative group cursor-pointer h-full">
+                <CardContent className="pt-10 pb-8">
+                  <div className="w-20 h-20 rounded-full bg-[#7C9082]/5 flex items-center justify-center mx-auto mb-6 group-hover:bg-[#7C9082]/10 group-hover:scale-110 transition-all">
+                    <MeditationPose className="w-10 h-10 text-[#7C9082]" />
+                  </div>
+                  <h3 className="text-xl font-medium mb-3 text-[#2D2D2D] group-hover:text-[#7C9082] transition-colors">
+                    {t("step1Title")}
+                  </h3>
+                  <p className="text-[#6B7280] leading-relaxed font-light">
+                    {t("step1Desc")}
+                  </p>
+                  <div className="absolute -top-4 -left-4 w-8 h-8 rounded-full bg-[#7C9082] text-white text-xs flex items-center justify-center font-medium shadow-md">
+                    1
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
 
-            {/* Step 2 */}
-            <Card className="text-center border-0 shadow-md hover:shadow-xl transition-all duration-300 bg-white relative group md:mt-8">
-              <CardContent className="pt-10 pb-8">
-                <div className="w-16 h-16 rounded-2xl bg-[#7C9082]/5 flex items-center justify-center mx-auto mb-6 group-hover:bg-[#7C9082]/10 transition-colors">
-                  <CalendarCheck className="h-8 w-8 text-[#7C9082]" />
-                </div>
-                <h3 className="text-xl font-medium mb-3 text-[#2D2D2D]">
-                  {t("step2Title")}
-                </h3>
-                <p className="text-[#6B7280] leading-relaxed font-light">
-                  {t("step2Desc")}
-                </p>
-                <div className="absolute -top-4 -left-4 w-8 h-8 rounded-full bg-[#7C9082] text-white text-xs flex items-center justify-center font-medium shadow-md">
-                  2
-                </div>
-              </CardContent>
-            </Card>
+            {/* Step 2 — link to search */}
+            <Link href="/search" className="block">
+              <Card className="text-center border-0 shadow-md hover:shadow-xl transition-all duration-300 bg-white relative group cursor-pointer h-full md:mt-8">
+                <CardContent className="pt-10 pb-8">
+                  <div className="w-20 h-20 rounded-full bg-[#7C9082]/5 flex items-center justify-center mx-auto mb-6 group-hover:bg-[#7C9082]/10 group-hover:scale-110 transition-all">
+                    <WarriorPose className="w-10 h-10 text-[#7C9082]" />
+                  </div>
+                  <h3 className="text-xl font-medium mb-3 text-[#2D2D2D] group-hover:text-[#7C9082] transition-colors">
+                    {t("step2Title")}
+                  </h3>
+                  <p className="text-[#6B7280] leading-relaxed font-light">
+                    {t("step2Desc")}
+                  </p>
+                  <div className="absolute -top-4 -left-4 w-8 h-8 rounded-full bg-[#7C9082] text-white text-xs flex items-center justify-center font-medium shadow-md">
+                    2
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
 
-            {/* Step 3 */}
-            <Card className="text-center border-0 shadow-md hover:shadow-xl transition-all duration-300 bg-white relative group">
-              <CardContent className="pt-10 pb-8">
-                <div className="w-16 h-16 rounded-2xl bg-[#7C9082]/5 flex items-center justify-center mx-auto mb-6 group-hover:bg-[#7C9082]/10 transition-colors">
-                  <Heart className="h-8 w-8 text-[#7C9082]" />
-                </div>
-                <h3 className="text-xl font-medium mb-3 text-[#2D2D2D]">
-                  {t("step3Title")}
-                </h3>
-                <p className="text-[#6B7280] leading-relaxed font-light">
-                  {t("step3Desc")}
-                </p>
-                <div className="absolute -top-4 -left-4 w-8 h-8 rounded-full bg-[#7C9082] text-white text-xs flex items-center justify-center font-medium shadow-md">
-                  3
-                </div>
-              </CardContent>
-            </Card>
+            {/* Step 3 — link to my-bookings */}
+            <Link href="/my-bookings" className="block">
+              <Card className="text-center border-0 shadow-md hover:shadow-xl transition-all duration-300 bg-white relative group cursor-pointer h-full">
+                <CardContent className="pt-10 pb-8">
+                  <div className="w-20 h-20 rounded-full bg-[#7C9082]/5 flex items-center justify-center mx-auto mb-6 group-hover:bg-[#7C9082]/10 group-hover:scale-110 transition-all">
+                    <TreePose className="w-10 h-10 text-[#7C9082]" />
+                  </div>
+                  <h3 className="text-xl font-medium mb-3 text-[#2D2D2D] group-hover:text-[#7C9082] transition-colors">
+                    {t("step3Title")}
+                  </h3>
+                  <p className="text-[#6B7280] leading-relaxed font-light">
+                    {t("step3Desc")}
+                  </p>
+                  <div className="absolute -top-4 -left-4 w-8 h-8 rounded-full bg-[#7C9082] text-white text-xs flex items-center justify-center font-medium shadow-md">
+                    3
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           </div>
         </div>
       </section>
@@ -228,6 +242,10 @@ export default async function HomePage() {
         {/* Decorative circles */}
         <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/5" />
         <div className="absolute -bottom-10 -left-10 w-60 h-60 rounded-full bg-white/5" />
+        {/* Subtle lotus */}
+        <div className="absolute top-1/2 right-[5%] -translate-y-1/2 text-white pointer-events-none">
+          <LotusFlower className="w-48 h-48" opacity={0.08} />
+        </div>
 
         <div className="container mx-auto px-4 py-20 text-center relative z-10">
           <Star className="h-8 w-8 text-white/40 mx-auto mb-6" />
