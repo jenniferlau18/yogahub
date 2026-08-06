@@ -10,11 +10,13 @@ export async function GET(request: Request) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
-      // Redirect to home — middleware will add the locale prefix
-      return NextResponse.redirect(new URL("/", origin));
+      // Redirect to home, stripping all query params
+      const homeUrl = new URL("/", origin);
+      return NextResponse.redirect(homeUrl);
     }
   }
 
-  // Something went wrong — redirect to login
-  return NextResponse.redirect(new URL("/auth/login", origin));
+  // If something went wrong, redirect to login (no code in URL)
+  const loginUrl = new URL("/auth/login", origin);
+  return NextResponse.redirect(loginUrl);
 }
