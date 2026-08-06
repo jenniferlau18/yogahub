@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { MapPin } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -19,6 +18,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { MapPin } from "lucide-react";
+import { HK_REGIONS, HK_DISTRICTS, type Region } from "@/lib/hk-districts";
 
 type YogaStyle = { id: number; name: string };
 
@@ -37,10 +38,7 @@ function NearMeButton() {
         const params = new URLSearchParams(window.location.search);
         params.set("lat", position.coords.latitude.toFixed(4));
         params.set("lng", position.coords.longitude.toFixed(4));
-
-        const cityInput = document.getElementById("city") as HTMLInputElement;
-        if (cityInput) cityInput.placeholder = "📍 Near you";
-
+        routerPush(params);
         setLoading(false);
       },
       () => {
@@ -65,20 +63,30 @@ function NearMeButton() {
   );
 }
 
+function routerPush(params: URLSearchParams) {
+  const qs = params.toString();
+  window.location.href = `/search${qs ? `?${qs}` : ""}`;
+}
+
 export function SearchFilters({
   currentQuery,
   currentStyle,
   currentDifficulty,
-  currentCity,
+  currentRegion,
+  currentDistrict,
+  currentDate,
   styles,
 }: {
   currentQuery: string;
   currentStyle: string;
   currentDifficulty: string;
-  currentCity: string;
+  currentRegion: string;
+  currentDistrict: string;
+  currentDate: string;
   styles: YogaStyle[];
 }) {
-  const router = useRouter();
+  const [region, setRegion] = useState<string>(currentRegion);
+  const [district, setDistrict] = useState<string>(currentDistrict);
 
   function applyFilters(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -89,29 +97,35 @@ export function SearchFilters({
     const q = formData.get("q") as string;
     const style = formData.get("style") as string;
     const difficulty = formData.get("difficulty") as string;
-    const city = formData.get("city") as string;
+    const r = formData.get("region") as string;
+    const d = formData.get("district") as string;
+    const date = formData.get("date") as string;
 
-    // Preserve lat/lng from current URL if present
+    if (q) params.set("q", q);
+    if (style && style !== "all") params.set("style", style);
+    if (difficulty && difficulty !== "all") params.set("difficulty", difficulty);
+    if (r && r !== "all") params.set("region", r);
+    if (d && d !== "all") params.set("district", d);
+    if (date) params.set("date", date);
+
+    // Preserve lat/lng
     const currentParams = new URLSearchParams(window.location.search);
     const lat = currentParams.get("lat");
     const lng = currentParams.get("lng");
-
-    if (q) params.set("q", q);
-    if (style) params.set("style", style);
-    if (difficulty) params.set("difficulty", difficulty);
-    if (city) params.set("city", city);
     if (lat) params.set("lat", lat);
     if (lng) params.set("lng", lng);
 
-    router.push(`/search?${params.toString()}`);
+    routerPush(params);
   }
 
   function clearFilters() {
-    router.push("/search");
+    window.location.href = "/search";
   }
 
+  const districts = region && region !== "all" ? HK_DISTRICTS[region as Region] ?? [] : [];
+
   return (
-    <aside className="w-full md:w-56 shrink-0">
+    <aside className="w-full md:w-64 shrink-0">
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-base">Filters</CardTitle>
@@ -119,35 +133,85 @@ export function SearchFilters({
         <CardContent>
           <form onSubmit={applyFilters} className="space-y-4">
             {/* Keyword */}
-            <div className="space-y-2">
-              <Label htmlFor="q">Search</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="q" className="text-xs">Search</Label>
               <Input
                 id="q"
                 name="q"
-                placeholder="City or studio..."
+                placeholder="Studio or class name..."
                 defaultValue={currentQuery}
+                className="h-9 text-sm"
               />
             </div>
 
-            {/* Location with Near Me */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="city">Location</Label>
-                <NearMeButton />
-              </div>
+            {/* Region */}
+            <div className="space-y-1.5">
+              <Label className="text-xs">Region</Label>
+              <Select
+                name="region"
+                defaultValue={currentRegion || undefined}
+                onValueChange={(v) => {
+                  setRegion(v ?? "");
+                  setDistrict("");
+                }}
+              >
+                <SelectTrigger className="h-9 text-sm">
+                  <SelectValue placeholder="All regions" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All regions</SelectItem>
+                  {HK_REGIONS.map((r) => (
+                    <SelectItem key={r} value={r}>
+                      {r}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* District (depends on region) */}
+            <div className="space-y-1.5">
+              <Label className="text-xs">District</Label>
+              <Select
+                name="district"
+                defaultValue={currentDistrict || undefined}
+                disabled={!region || region === "all"}
+              >
+                <SelectTrigger className="h-9 text-sm">
+                  <SelectValue placeholder={
+                    !region || region === "all"
+                      ? "Pick a region first"
+                      : "All districts"
+                  } />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All districts</SelectItem>
+                  {districts.map((d) => (
+                    <SelectItem key={d} value={d}>
+                      {d}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Date */}
+            <div className="space-y-1.5">
+              <Label htmlFor="date" className="text-xs">Date</Label>
               <Input
-                id="city"
-                name="city"
-                placeholder="e.g. Hong Kong"
-                defaultValue={currentCity}
+                id="date"
+                name="date"
+                type="date"
+                defaultValue={currentDate}
+                className="h-9 text-sm"
               />
             </div>
 
             {/* Style */}
-            <div className="space-y-2">
-              <Label>Style</Label>
+            <div className="space-y-1.5">
+              <Label className="text-xs">Style</Label>
               <Select name="style" defaultValue={currentStyle || undefined}>
-                <SelectTrigger>
+                <SelectTrigger className="h-9 text-sm">
                   <SelectValue placeholder="Any style" />
                 </SelectTrigger>
                 <SelectContent>
@@ -162,13 +226,13 @@ export function SearchFilters({
             </div>
 
             {/* Difficulty */}
-            <div className="space-y-2">
-              <Label>Difficulty</Label>
+            <div className="space-y-1.5">
+              <Label className="text-xs">Difficulty</Label>
               <Select
                 name="difficulty"
                 defaultValue={currentDifficulty || undefined}
               >
-                <SelectTrigger>
+                <SelectTrigger className="h-9 text-sm">
                   <SelectValue placeholder="Any level" />
                 </SelectTrigger>
                 <SelectContent>
@@ -178,6 +242,11 @@ export function SearchFilters({
                   <SelectItem value="advanced">🌳 Advanced</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+
+            {/* Near Me */}
+            <div className="flex items-center justify-between pt-1">
+              <NearMeButton />
             </div>
 
             <div className="flex gap-2 pt-2">
