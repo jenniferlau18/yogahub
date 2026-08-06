@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 
 export async function signUp(formData: FormData) {
@@ -54,7 +55,11 @@ export async function signIn(formData: FormData) {
 export async function signInWithGoogle() {
   const supabase = await createClient();
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yogahub-chi.vercel.app";
+  // Auto-detect site URL from request headers
+  const headersList = await headers();
+  const host = headersList.get("host") || headersList.get("x-forwarded-host") || "localhost:3000";
+  const protocol = host.includes("localhost") ? "http" : "https";
+  const siteUrl = `${protocol}://${host}`;
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
