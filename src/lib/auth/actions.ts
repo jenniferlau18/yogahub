@@ -57,8 +57,8 @@ export async function signInWithGoogle() {
 
   // Auto-detect site URL from request headers
   const headersList = await headers();
-  const host = headersList.get("host") || headersList.get("x-forwarded-host") || "localhost:3000";
-  const protocol = host.includes("localhost") ? "http" : "https";
+  const host = headersList.get("host") || headersList.get("x-forwarded-host") || "yogahub-chi.vercel.app";
+  const protocol = host.startsWith("localhost") || host.startsWith("127.") ? "http" : "https";
   const siteUrl = `${protocol}://${host}`;
 
   const { data, error } = await supabase.auth.signInWithOAuth({
