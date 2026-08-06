@@ -54,8 +54,8 @@
 - [x] Review form with hover stars
 - [x] Empty states throughout the app
 
-## ⏳ Phase 7: Deploy
-- [ ] Push to GitHub
-- [ ] Connect Vercel
-- [ ] Add env variables
-- [ ] Go live!
+## ✅ Phase 7: Deploy — COMPLETE
+- [x] Push to GitHub (github.com/jenniferlau18/yogahub)
+- [x] Connect to Vercel
+- [x] Environment variables configured
+- [x] Live at yogahub-chi.vercel.app!
