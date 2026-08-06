@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import { NavbarUserMenu } from "./navbar-user-menu";
@@ -6,6 +7,8 @@ import { LanguageSwitcher } from "./language-switcher";
 
 export async function Navbar() {
   const supabase = await createClient();
+  const t = await getTranslations("common");
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -25,7 +28,7 @@ export async function Navbar() {
       <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="text-lg font-semibold text-[#2D2D2D]">
-          🧘 YogaHub
+          🧘 {t("appName")}
         </Link>
 
         {/* Right side */}
@@ -40,12 +43,12 @@ export async function Navbar() {
             <>
               <Link href="/auth/login">
                 <Button variant="ghost" size="sm">
-                  Sign In
+                  {t("signIn")}
                 </Button>
               </Link>
               <Link href="/auth/signup">
                 <Button size="sm" className="bg-[#7C9082] hover:bg-[#6B7D71]">
-                  Sign Up
+                  {t("signUp")}
                 </Button>
               </Link>
             </>

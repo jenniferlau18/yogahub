@@ -27,10 +27,12 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <div className={`${inter.variable} font-sans`}>
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        {children}
-      </NextIntlClientProvider>
-    </div>
+    <html lang={locale} suppressHydrationWarning>
+      <body className={`${inter.variable} font-sans min-h-screen bg-[#FAFAF8] text-[#2D2D2D] antialiased`}>
+        <NextIntlClientProvider messages={messages} locale={locale}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 }

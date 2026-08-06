@@ -22,11 +22,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen bg-[#FAFAF8] text-[#2D2D2D] antialiased">
-        {children}
-      </body>
-    </html>
-  );
+  return children;
 }

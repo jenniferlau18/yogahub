@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { Navbar } from "@/components/layout/navbar";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,8 @@ import { Search, MapPin, CalendarCheck, Heart, ArrowRight, Sparkles } from "luci
 
 export default async function HomePage() {
   const supabase = await createClient();
+  const t = await getTranslations("home");
+  const tc = await getTranslations("common");
 
   // Fetch featured studios (recent ones)
   const { data: studios } = await supabase
@@ -40,16 +43,15 @@ export default async function HomePage() {
               className="mb-4 bg-white/60 backdrop-blur border-[#7C9082]/20"
             >
               <Sparkles className="h-3 w-3 mr-1 text-[#7C9082]" />
-              Find Your Flow
+              {t("badge")}
             </Badge>
 
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-[#2D2D2D]">
-              Find Your Yoga Rhythm
+              {t("heroTitle")}
             </h1>
 
             <p className="text-lg md:text-xl text-gray-500 mb-8 max-w-2xl mx-auto">
-              Discover yoga studios near you, book classes instantly, and find
-              your perfect practice — all in one place.
+              {t("heroSubtitle")}
             </p>
 
             {/* Search Pill */}
@@ -57,14 +59,14 @@ export default async function HomePage() {
               <Search className="h-5 w-5 text-gray-400 ml-4 shrink-0" />
               <Input
                 name="q"
-                placeholder="Search studios, styles, or cities..."
+                placeholder={tc("searchPlaceholder")}
                 className="border-0 shadow-none focus-visible:ring-0 text-base h-10"
               />
               <Button
                 type="submit"
                 className="rounded-full bg-[#7C9082] hover:bg-[#6B7D71] px-6 h-10"
               >
-                Search
+                {tc("search")}
               </Button>
             </form>
 
@@ -91,7 +93,7 @@ export default async function HomePage() {
       {/* ── How It Works ── */}
       <section className="container mx-auto px-4 py-16 md:py-24">
         <h2 className="text-3xl font-bold text-center mb-12 text-[#2D2D2D]">
-          How It Works
+          {t("howItWorks")}
         </h2>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
@@ -102,12 +104,9 @@ export default async function HomePage() {
                 <MapPin className="h-7 w-7 text-[#7C9082]" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-[#2D2D2D]">
-                Find a Studio
+                {t("step1Title")}
               </h3>
-              <p className="text-gray-500">
-                Browse yoga studios in your area. Filter by style, difficulty,
-                and location.
-              </p>
+              <p className="text-gray-500">{t("step1Desc")}</p>
             </CardContent>
           </Card>
 
@@ -118,12 +117,9 @@ export default async function HomePage() {
                 <CalendarCheck className="h-7 w-7 text-[#7C9082]" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-[#2D2D2D]">
-                Book a Class
+                {t("step2Title")}
               </h3>
-              <p className="text-gray-500">
-                Pick a session that fits your schedule. One click and you&apos;re
-                in — no hassle.
-              </p>
+              <p className="text-gray-500">{t("step2Desc")}</p>
             </CardContent>
           </Card>
 
@@ -134,12 +130,9 @@ export default async function HomePage() {
                 <Heart className="h-7 w-7 text-[#7C9082]" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-[#2D2D2D]">
-                Practice & Enjoy
+                {t("step3Title")}
               </h3>
-              <p className="text-gray-500">
-                Show up, roll out your mat, and enjoy. Leave a review to help
-                others discover great studios.
-              </p>
+              <p className="text-gray-500">{t("step3Desc")}</p>
             </CardContent>
           </Card>
         </div>
@@ -149,11 +142,10 @@ export default async function HomePage() {
       <section className="bg-[#7C9082]">
         <div className="container mx-auto px-4 py-16 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
-            Are You a Studio Owner?
+            {t("forOwners")}
           </h2>
           <p className="text-[#E8EDE8] mb-8 max-w-xl mx-auto text-lg">
-            List your studio, manage class schedules, and reach more students —
-            with fair pricing that respects small businesses.
+            {t("forOwnersDesc")}
           </p>
           <Link href="/auth/signup">
             <Button
@@ -161,7 +153,7 @@ export default async function HomePage() {
               variant="secondary"
               className="font-semibold"
             >
-              List Your Studio
+              {t("listYourStudio")}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
@@ -172,11 +164,11 @@ export default async function HomePage() {
       <section className="container mx-auto px-4 py-16 md:py-24">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-3xl font-bold text-[#2D2D2D]">
-            Featured Studios
+            {t("featuredStudios")}
           </h2>
           <Link href="/search">
             <Button variant="ghost" className="text-[#7C9082]">
-              View All <ArrowRight className="ml-1 h-4 w-4" />
+              {t("viewAll")} <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
           </Link>
         </div>
@@ -185,14 +177,14 @@ export default async function HomePage() {
           <div className="text-center py-16">
             <div className="text-5xl mb-4">🧘</div>
             <h3 className="text-xl font-semibold text-[#2D2D2D] mb-2">
-              No studios yet
+              {t("noStudios")}
             </h3>
             <p className="text-gray-500 mb-6">
               Be the first! Studio owners, sign up to get featured here.
             </p>
             <Link href="/auth/signup">
               <Button className="bg-[#7C9082] hover:bg-[#6B7D71]">
-                List Your Studio <ArrowRight className="ml-2 h-4 w-4" />
+                {t("listYourStudio")} <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
           </div>
@@ -230,47 +222,45 @@ export default async function HomePage() {
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div>
               <h3 className="font-bold text-lg mb-3 text-[#2D2D2D]">
-                🧘 YogaHub
+                🧘 {tc("appName")}
               </h3>
-              <p className="text-sm text-gray-500">
-                Connecting students with yoga studios. Fair, simple, local.
-              </p>
+              <p className="text-sm text-gray-500">{t("footerTagline")}</p>
             </div>
             <div>
               <h3 className="font-semibold mb-3 text-[#2D2D2D]">
-                For Students
+                {t("forStudents")}
               </h3>
               <ul className="space-y-2 text-sm text-gray-500">
                 <li>
                   <Link href="/search" className="hover:text-[#7C9082]">
-                    Find Studios
+                    {t("findStudios")}
                   </Link>
                 </li>
                 <li>
                   <Link href="/search" className="hover:text-[#7C9082]">
-                    Browse Classes
+                    {t("browseClasses")}
                   </Link>
                 </li>
                 <li>
                   <Link href="/auth/signup" className="hover:text-[#7C9082]">
-                    Sign Up
+                    {tc("signUp")}
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-3 text-[#2D2D2D]">
-                For Owners
+                {t("forOwnersLink")}
               </h3>
               <ul className="space-y-2 text-sm text-gray-500">
                 <li>
                   <Link href="/auth/signup" className="hover:text-[#7C9082]">
-                    List Your Studio
+                    {t("listYourStudio")}
                   </Link>
                 </li>
                 <li>
                   <Link href="/dashboard" className="hover:text-[#7C9082]">
-                    Dashboard
+                    {t("dashboard")}
                   </Link>
                 </li>
               </ul>
@@ -278,7 +268,7 @@ export default async function HomePage() {
           </div>
 
           <div className="text-center mt-10 pt-6 border-t text-sm text-gray-400">
-            © {new Date().getFullYear()} YogaHub. Built with 💚 for the yoga community.
+            © {new Date().getFullYear()} YogaHub. {t("copyright")}
           </div>
         </div>
       </footer>

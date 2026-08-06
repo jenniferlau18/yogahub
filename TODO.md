@@ -59,3 +59,11 @@
 - [x] Connect to Vercel
 - [x] Environment variables configured
 - [x] Live at yogahub-chi.vercel.app!
+
+## ✅ Bonus Features
+- [x] Bilingual: English + Traditional Chinese (zh/en)
+- [x] Language switcher (中文/EN) in navbar
+- [x] Google OAuth sign-in on login + signup
+- [x] "Near Me" button with browser geolocation
+- [x] DESIGN.md brand design system
+- [x] Open Design skill installed
