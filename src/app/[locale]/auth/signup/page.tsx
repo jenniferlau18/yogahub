@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
 import { signUp, signInWithGoogle } from "@/lib/auth/actions";
 
@@ -29,14 +29,14 @@ export default function SignUpPage() {
   const [error, setError] = useState("");
   const [role, setRole] = useState("student");
 
-  async function handleSubmit(formData: FormData) {
+  const handleSubmit = useCallback(async (formData: FormData) => {
     setError("");
     formData.set("role", role);
     const result = await signUp(formData);
     if (result?.error) {
       setError(result.error);
     }
-  }
+  }, [role]);
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-[#FAFAF8]">
