@@ -3,7 +3,8 @@ import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
   // Update the auth session (refreshes tokens, keeps user logged in)
-  return await updateSession(request);
+  const { supabaseResponse } = await updateSession(request);
+  return supabaseResponse;
 }
 
 // Only run middleware on these paths — NOT on static files or images
