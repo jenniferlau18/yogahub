@@ -9,6 +9,13 @@ export async function middleware(request: NextRequest) {
   // Run Supabase session refresh
   const { supabaseResponse } = await updateSession(request);
 
+  // Don't redirect the auth callback — let it handle the OAuth code exchange
+  // then redirect to the locale-aware home page itself
+  const pathname = request.nextUrl.pathname;
+  if (pathname === "/auth/callback") {
+    return supabaseResponse;
+  }
+
   // Run i18n middleware — use the supabase response so cookies carry through
   const intlResponse = intlMiddleware(request);
 
