@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 
 export async function signUp(formData: FormData) {
@@ -11,6 +12,11 @@ export async function signUp(formData: FormData) {
   const password = formData.get("password") as string;
   const fullName = formData.get("full_name") as string;
   const role = formData.get("role") as string;
+
+  // Detect locale from referer or origin header
+  const heads = await headers();
+  const referer = heads.get("referer") || "";
+  const localePath = referer.includes("/en/") ? "/en" : "";
 
   // Register the user with Supabase Auth
   const { error } = await supabase.auth.signUp({
@@ -25,11 +31,11 @@ export async function signUp(formData: FormData) {
   });
 
   if (error) {
-    redirect(`/auth/signup?error=${encodeURIComponent(error.message)}`);
+    redirect(`${localePath}/auth/signup?error=${encodeURIComponent(error.message)}`);
   }
 
   // Redirect to login with a success message
-  redirect("/auth/login?signup=success");
+  redirect(`${localePath}/auth/login?signup=success`);
 }
 
 export async function signIn(formData: FormData) {
