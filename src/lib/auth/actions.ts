@@ -25,7 +25,7 @@ export async function signUp(formData: FormData) {
   });
 
   if (error) {
-    return { error: error.message };
+    redirect(`/auth/signup?error=${encodeURIComponent(error.message)}`);
   }
 
   // Redirect to login with a success message
