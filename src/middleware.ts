@@ -1,15 +1,28 @@
+import createMiddleware from "next-intl/middleware";
+import { routing } from "@/i18n/routing";
 import { updateSession } from "@/lib/supabase/middleware";
 import type { NextRequest } from "next/server";
 
+const intlMiddleware = createMiddleware(routing);
+
 export async function middleware(request: NextRequest) {
-  // Update the auth session (refreshes tokens, keeps user logged in)
+  // Run Supabase session refresh
   const { supabaseResponse } = await updateSession(request);
-  return supabaseResponse;
+
+  // Run i18n middleware — use the supabase response so cookies carry through
+  const intlResponse = intlMiddleware(request);
+
+  // Merge cookies from Supabase into the i18n response
+  supabaseResponse.cookies.getAll().forEach((cookie) => {
+    intlResponse.cookies.set(cookie.name, cookie.value, {
+      path: "/",
+      ...cookie,
+    });
+  });
+
+  return intlResponse;
 }
 
-// Only run middleware on these paths — NOT on static files or images
 export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-  ],
+  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
 };

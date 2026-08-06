@@ -1,0 +1,77 @@
+{
+  "common": {
+    "appName": "YogaHub",
+    "signIn": "登入",
+    "signUp": "註冊",
+    "signOut": "登出",
+    "search": "搜尋",
+    "searchPlaceholder": "搜尋瑜伽館、風格或地區...",
+    "loading": "載入中...",
+    "close": "關閉"
+  },
+  "home": {
+    "badge": "尋找你的瑜伽節奏",
+    "heroTitle": "在香港找到你的瑜伽節奏",
+    "heroSubtitle": "探索你附近的瑜伽館，即時預約課堂，找到最適合你的練習——盡在一個平台。",
+    "howItWorks": "如何使用",
+    "step1Title": "尋找瑜伽館",
+    "step1Desc": "瀏覽你所在地區的瑜伽館。按風格、難度和地點篩選。",
+    "step2Title": "預約課堂",
+    "step2Desc": "選擇適合你時間表的課堂。一鍵預約，輕鬆快捷。",
+    "step3Title": "練習與享受",
+    "step3Desc": "準時到達，展開瑜伽墊，享受練習。留下評價，幫助其他人發現優質瑜伽館。",
+    "forOwners": "你是瑜伽館主嗎？",
+    "forOwnersDesc": "列出你的瑜伽館，管理課堂時間表，接觸更多學員——我們提供公平的定價，尊重小型企業。",
+    "listYourStudio": "列出你的瑜伽館",
+    "featuredStudios": "精選瑜伽館",
+    "viewAll": "查看全部",
+    "noStudios": "暫無瑜伽館。快來成為第一個！",
+    "footerTagline": "連結學員與瑜伽館。",
+    "forStudents": "給學員",
+    "forOwnersLink": "給瑜伽館主",
+    "findStudios": "尋找瑜伽館",
+    "browseClasses": "瀏覽課堂",
+    "dashboard": "控制台",
+    "copyright": "為瑜伽社群用心打造 💚"
+  },
+  "nav": {
+    "studios": "瑜伽館",
+    "classes": "課堂",
+    "myBookings": "我的預約",
+    "dashboard": "控制台",
+    "profile": "個人資料"
+  },
+  "auth": {
+    "email": "電郵",
+    "password": "密碼",
+    "fullName": "姓名",
+    "signInTitle": "登入",
+    "signUpTitle": "建立帳戶",
+    "noAccount": "還沒有帳戶？",
+    "hasAccount": "已有帳戶？",
+    "signInWithGoogle": "使用 Google 繼續",
+    "orContinueWith": "或使用電郵繼續",
+    "iAmStudent": "我是學員",
+    "iAmOwner": "我是瑜伽館主",
+    "selectRole": "選擇你的身份"
+  },
+  "search": {
+    "title": "尋找瑜伽館及課堂",
+    "filters": "篩選",
+    "style": "瑜伽風格",
+    "allStyles": "所有風格",
+    "difficulty": "難度",
+    "allDifficulties": "所有難度",
+    "city": "地區",
+    "allCities": "所有地區",
+    "nearMe": "附近",
+    "noResults": "沒有找到結果。請調整篩選條件。"
+  },
+  "booking": {
+    "bookNow": "預約",
+    "booking": "預約中...",
+    "cancel": "取消",
+    "full": "已滿",
+    "spotsLeft": "剩餘 {count} 個名額"
+  }
+}

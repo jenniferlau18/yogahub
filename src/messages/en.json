@@ -1,0 +1,77 @@
+{
+  "common": {
+    "appName": "YogaHub",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "search": "Search",
+    "searchPlaceholder": "Search studios, styles, or locations...",
+    "loading": "Loading...",
+    "close": "Close"
+  },
+  "home": {
+    "badge": "Find Your Flow",
+    "heroTitle": "Find Your Yoga Rhythm",
+    "heroSubtitle": "Discover yoga studios near you, book classes instantly, and find your perfect practice — all in one place.",
+    "howItWorks": "How It Works",
+    "step1Title": "Find a Studio",
+    "step1Desc": "Browse yoga studios in your area. Filter by style, difficulty, and location.",
+    "step2Title": "Book a Class",
+    "step2Desc": "Pick a session that fits your schedule. One click and you're in — no hassle.",
+    "step3Title": "Practice & Enjoy",
+    "step3Desc": "Show up, roll out your mat, and enjoy. Leave a review to help others discover great studios.",
+    "forOwners": "Are You a Studio Owner?",
+    "forOwnersDesc": "List your studio, manage class schedules, and reach more students — with fair pricing that respects small businesses.",
+    "listYourStudio": "List Your Studio",
+    "featuredStudios": "Featured Studios",
+    "viewAll": "View All",
+    "noStudios": "No studios yet. Be the first!",
+    "footerTagline": "Connecting students with yoga studios.",
+    "forStudents": "For Students",
+    "forOwnersLink": "For Owners",
+    "findStudios": "Find Studios",
+    "browseClasses": "Browse Classes",
+    "dashboard": "Dashboard",
+    "copyright": "Built with 💚 for the yoga community."
+  },
+  "nav": {
+    "studios": "Studios",
+    "classes": "Classes",
+    "myBookings": "My Bookings",
+    "dashboard": "Dashboard",
+    "profile": "Profile"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full Name",
+    "signInTitle": "Sign In",
+    "signUpTitle": "Create Account",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signInWithGoogle": "Continue with Google",
+    "orContinueWith": "or continue with email",
+    "iAmStudent": "I'm a Student",
+    "iAmOwner": "I'm a Studio Owner",
+    "selectRole": "Select your role"
+  },
+  "search": {
+    "title": "Find Studios & Classes",
+    "filters": "Filters",
+    "style": "Yoga Style",
+    "allStyles": "All Styles",
+    "difficulty": "Difficulty",
+    "allDifficulties": "All Difficulties",
+    "city": "City",
+    "allCities": "All Cities",
+    "nearMe": "Near Me",
+    "noResults": "No results found. Try adjusting your filters."
+  },
+  "booking": {
+    "bookNow": "Book",
+    "booking": "Booking...",
+    "cancel": "Cancel",
+    "full": "Full",
+    "spotsLeft": "{count} spot left | {count} spots left"
+  }
+}
