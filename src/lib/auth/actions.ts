@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 
 export async function signUp(formData: FormData) {
@@ -12,11 +11,8 @@ export async function signUp(formData: FormData) {
   const password = formData.get("password") as string;
   const fullName = formData.get("full_name") as string;
   const role = formData.get("role") as string;
-
-  // Detect locale from referer or origin header
-  const heads = await headers();
-  const referer = heads.get("referer") || "";
-  const localePath = referer.includes("/en/") ? "/en" : "";
+  const locale = (formData.get("locale") as string) || "";
+  const localePath = locale === "en" ? "/en" : "";
 
   const siteUrl = "https://yogahub-chi.vercel.app";
 

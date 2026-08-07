@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
 import { signUp, signInWithGoogle } from "@/lib/auth/actions";
@@ -30,8 +30,10 @@ const googleAction = signInWithGoogle as any;
 
 function SignUpForm() {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const errorFromUrl = searchParams.get("error");
   const [role, setRole] = useState("student");
+  const locale = pathname.startsWith("/en") ? "en" : "zh";
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-[#FAFAF8]">
@@ -65,8 +67,9 @@ function SignUpForm() {
             </div>
           </div>
 
-          {/* Email signup — binds signUp directly with hidden role */}
+          {/* Email signup — binds signUp directly, locale + role via hidden inputs */}
           <form action={signUp} className="space-y-4">
+            <input type="hidden" name="locale" value={locale} />
             {/* Full Name */}
             <div className="space-y-2">
               <Label htmlFor="full_name">Full Name</Label>
