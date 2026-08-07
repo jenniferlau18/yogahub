@@ -15,9 +15,20 @@
 - [x] Security policies created
 - [x] Auto-create profile on signup
 
-## ✅ Phase 2: Authentication — COMPLETE
+## ✅ Phase 2: Authentication — MOSTLY DONE
 - [x] Sign up page with student/owner role picker
 - [x] Sign in page with signup success message
+- [x] Google OAuth (working)
+- [x] Auth actions (signUp, signIn, signOut, signInWithGoogle)
+- [x] Middleware protection
+- [x] Callback route
+- [x] **Fixed: "Invalid API key" on Vercel** (replaced @supabase/ssr with supabase-js, hardcoded key)
+- [ ] Email confirmation (check Supabase dashboard toggle)
+- [ ] Figure out why process.env doesn't resolve in Vercel server actions
+
+## 🐛 Known Issues
+- Supabase anon key is hardcoded in src/lib/auth/actions.ts — env vars not resolving on Vercel
+- Email confirmation required by default — see task "fix-remaining-auth-issues-email-confirmation-env"
 - [x] Auth callback handler for email confirmation
 - [x] Middleware to refresh sessions
 - [x] Profile page (view/edit name, phone, sign out)
