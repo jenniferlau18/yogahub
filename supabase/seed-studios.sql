@@ -36,7 +36,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800'],
     ARRAY['Showers', 'Changing Rooms', 'Mats Provided', 'Lockers'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Resistance Yoga', 'Build strength using resistance bands integrated into yoga flow', 6, 'intermediate', 60, 250),
     (v_studio_id, 'HIIT Yoga', 'High-intensity interval training blended with yoga poses', 6, 'advanced', 45, 280),
     (v_studio_id, 'Zen Flow', 'Calming, slow-paced flow to restore balance and peace', 5, 'beginner', 60, 200),
@@ -51,7 +51,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1588286840104-8957b019727f?w=800'],
     ARRAY['Showers', 'Infrared Sauna', 'Mats Provided', 'Lockers', 'Meditation Room'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Warm Vinyasa', 'Dynamic vinyasa flow in a gently heated room', 2, 'intermediate', 60, 220),
     (v_studio_id, 'Yin & Sound', 'Deep yin stretches accompanied by live sound healing', 4, 'beginner', 75, 250),
     (v_studio_id, 'Aerial Yoga', 'Traditional yoga poses using aerial silk hammocks', 1, 'intermediate', 60, 300),
@@ -66,7 +66,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=800'],
     ARRAY['Showers', 'Towels', 'Mats Provided', 'Lockers', 'Cafe'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Hot Hatha', 'Classic Hatha postures in a heated studio for deep detoxification', 9, 'intermediate', 60, 280),
     (v_studio_id, 'Wall Rope Yoga', 'Use wall ropes for traction, alignment, and deeper stretches', 8, 'intermediate', 75, 320),
     (v_studio_id, 'Aerial Flow', 'Dynamic aerial yoga combining silk hammocks with flowing sequences', 1, 'intermediate', 60, 300),
@@ -82,7 +82,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=800'],
     ARRAY['Mats Provided', 'Changing Rooms', 'Eco-Friendly Materials'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Alignment Flow', 'Focus on proper alignment in each pose with mindful transitions', 1, 'beginner', 60, 180),
     (v_studio_id, 'Heated Stretch', 'Deep stretching in a gently heated room for maximum flexibility', 9, 'beginner', 60, 200),
     (v_studio_id, 'AntiGravity Yoga', 'Zero-compression inversions and floating poses using hammocks', 1, 'intermediate', 60, 280);
@@ -96,7 +96,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800'],
     ARRAY['Hot Yoga Room', 'Infrared Heating', 'Showers', 'Changing Rooms'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Hot Vinyasa', 'Beat-driven vinyasa flow in infrared-heated candlelit studio', 9, 'intermediate', 60, 300),
     (v_studio_id, 'Hot Core Flow', 'Core-focused hot yoga session to strengthen and sculpt', 9, 'advanced', 45, 280),
     (v_studio_id, 'Candlelight Yin', 'Slow, meditative yin practice by candlelight', 4, 'beginner', 60, 220);
@@ -110,7 +110,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?w=800'],
     ARRAY['Showers', 'Mats Provided', 'Lockers', 'TRX Equipment', 'Pilates Equipment'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Morning Hatha', 'Energizing morning Hatha practice to start your day', 1, 'beginner', 60, 180),
     (v_studio_id, 'Hot Flow', 'Dynamic flow in a heated room — sweat, stretch, and strengthen', 9, 'intermediate', 60, 250),
     (v_studio_id, 'TRX Yoga', 'Yoga poses enhanced with TRX suspension training', 6, 'intermediate', 45, 280),
@@ -125,7 +125,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800'],
     ARRAY['Mats Provided', 'Singing Bowls', 'Changing Rooms'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Power Hour', 'One hour of powerful asana practice to build strength and stamina', 6, 'intermediate', 60, 220),
     (v_studio_id, 'Core & Restore', 'Half core work, half restorative yoga — the best of both worlds', 5, 'beginner', 60, 200),
     (v_studio_id, 'Wheel Yoga', 'Use the yoga wheel to deepen backbends and open the heart', 1, 'intermediate', 60, 250);
@@ -139,7 +139,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800'],
     ARRAY['Mats Provided', 'Online Classes', 'Equipment Shop', 'Changing Rooms'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Back Care Yoga', 'Therapeutic yoga for back pain relief and spinal health', 8, 'beginner', 60, 250),
     (v_studio_id, 'Core Yoga', 'Strengthen your core with targeted yoga sequences', 6, 'intermediate', 45, 220),
     (v_studio_id, 'Slimming Yoga', 'Dynamic sequences designed for weight management and toning', 2, 'intermediate', 60, 230);
@@ -153,7 +153,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800'],
     ARRAY['Candlelit Studio', 'Showers', 'Towels', 'Lockers', 'Premium Amenities'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Cocoon Hatha', 'Beginner-friendly Hatha in the candlelit Cocoon room', 1, 'beginner', 60, 280),
     (v_studio_id, 'Handstand Workshop', 'Learn handstand technique in a supportive small group', 6, 'advanced', 90, 350),
     (v_studio_id, 'Mycelium Flow', 'Advanced dynamic vinyasa in the Mycelium room', 2, 'advanced', 60, 300);
@@ -167,7 +167,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1593164842264-854604db2260?w=800'],
     ARRAY['Mats Provided', 'Changing Rooms', 'Teacher Training'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Relaxing Stretch', 'Gentle stretching class to release tension and improve flexibility', 5, 'beginner', 60, 180),
     (v_studio_id, 'Aerial Stretch', 'Use the aerial hammock for deep, supported stretching', 1, 'beginner', 60, 280),
     (v_studio_id, 'RYT200 Prep Flow', 'Vinyasa flow class aligned with teacher training curriculum', 2, 'intermediate', 75, 250);
@@ -181,7 +181,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1545389336-cf090694435e?w=800'],
     ARRAY['Pilates Equipment', 'Showers', 'Mats Provided', 'Lockers'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Back Care Stretch', 'Stretch and release for back tension — holds poses longer', 5, 'beginner', 60, 220),
     (v_studio_id, 'Power Sculpt', 'Yoga-based strength and sculpting workout', 6, 'intermediate', 45, 250),
     (v_studio_id, 'Classical Pilates Mat', 'Traditional Pilates mat work for core strength and alignment', 8, 'intermediate', 55, 280);
@@ -195,7 +195,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800'],
     ARRAY['Mats Provided', 'Changing Rooms', 'Dance Studio'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Flow & Tone', 'Vinyasa flow with bodyweight toning exercises', 2, 'intermediate', 60, 220),
     (v_studio_id, 'Signature Stretch', 'MOVE''s uniquely designed deep stretching experience', 5, 'beginner', 60, 200);
 
@@ -208,7 +208,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=800'],
     ARRAY['Mats Provided', 'Changing Rooms', 'Natural Light'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Gentle Relaxation', 'Wind down with gentle yoga — perfect after a long day', 5, 'beginner', 60, 200),
     (v_studio_id, 'Core & Flow', 'Build core strength with flowing vinyasa sequences', 2, 'intermediate', 60, 220);
 
@@ -221,7 +221,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1599447421416-3414500d18a5?w=800'],
     ARRAY['Aerial Yoga', 'Mats Provided', 'Showers', 'Changing Rooms'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Lunchtime Flow', '45-minute flow designed for the lunch break', 2, 'beginner', 45, 180),
     (v_studio_id, 'Backbend & Inversion', 'Progressive backbend and inversion practice for experienced yogis', 2, 'advanced', 75, 280);
 
@@ -234,7 +234,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1593810450967-f9dfc0e44b4a?w=800'],
     ARRAY['Mats Provided', 'Luxury Amenities', 'Private Sessions'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Foundations Vinyasa', 'Learn the building blocks of vinyasa yoga', 2, 'beginner', 60, 300),
     (v_studio_id, 'Kita Sculpt', 'High-intensity yoga sculpt using bodyweight and light weights', 6, 'advanced', 45, 350);
 
@@ -247,7 +247,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=800'],
     ARRAY['Aerial Yoga', 'Mats Provided', 'Sound Healing', 'Women-Only Space'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Menstrual Health Yoga', 'Yoga poses and breathing to support your monthly cycle', 5, 'beginner', 60, 220),
     (v_studio_id, 'Postnatal Recovery', 'Gentle yoga for new mothers — rebuild core and pelvic strength', 10, 'beginner', 60, 250),
     (v_studio_id, 'Aerial Sound Bath', 'Floating sound healing in aerial hammocks', 4, 'beginner', 60, 300);
@@ -261,7 +261,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1588286840104-8957b019727f?w=800'],
     ARRAY['Showers', 'Lockers', 'Yoga Boutique', 'Mats Provided'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Ashtanga Led', 'Traditional Ashtanga primary series — led with full instruction', 3, 'intermediate', 90, 300),
     (v_studio_id, 'Yin Yang', 'Half dynamic yang flow, half restorative yin', 4, 'beginner', 75, 220);
 
@@ -274,7 +274,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1545389336-cf090694435e?w=800'],
     ARRAY['Mats Provided', 'Pilates Equipment', 'Changing Rooms', 'Natural Light'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'HIIT & Flow', 'High-intensity intervals mixed with yoga flow for recovery', 6, 'intermediate', 45, 200),
     (v_studio_id, 'Hatha Foundations', 'Classic Hatha — perfect for beginners learning the basics', 1, 'beginner', 60, 180);
 
@@ -287,7 +287,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?w=800'],
     ARRAY['Aerial Yoga', 'Mats Provided', 'Natural Light', 'Workshop Space'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Mindfulness Yin', 'Deep yin stretches with mindfulness meditation woven throughout', 4, 'beginner', 60, 200),
     (v_studio_id, 'Meridian Yoga Therapy', 'Yoga targeting meridian lines — a Traditional Chinese Medicine approach', 8, 'beginner', 75, 250);
 
@@ -300,7 +300,7 @@ BEGIN
     ARRAY['https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800'],
     ARRAY['Mats Provided', 'Breathwork Focus', 'Changing Rooms'])
   RETURNING id INTO v_studio_id;
-  INSERT INTO classes (studio_id, name, description, style_id, difficulty, duration_min, price) VALUES
+  INSERT INTO classes (studio_id, title, description, style_id, difficulty, duration_minutes, price) VALUES
     (v_studio_id, 'Breath & Hatha', 'Hatha yoga with special emphasis on pranayama breathing techniques', 1, 'beginner', 60, 150),
     (v_studio_id, 'Wheel & Stretch', 'Yoga wheel-assisted backbends and deep opening stretches', 4, 'intermediate', 60, 200);
 
