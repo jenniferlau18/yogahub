@@ -9,20 +9,29 @@ export async function GET() {
     ? key.slice(0, 9) + "..." + key.slice(-8)
     : key;
 
-  // Simple key check — just verify via a REST/health-style call
-  let keyCheck = "not tested";
+  // Test auth signup via raw fetch (same call as signUp server action)
+  let authCheck = "not tested";
   try {
-    const res = await fetch(`${url}/rest/v1/profiles?limit=1`, {
-      headers: { apikey: key, Authorization: `Bearer ${key}` },
+    const res = await fetch(`${url}/auth/v1/signup`, {
+      method: "POST",
+      headers: {
+        apikey: key,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: "debugcheck2@mailinator.com",
+        password: "Test123456!",
+        data: { full_name: "Debug", role: "student" },
+      }),
     });
-    keyCheck = `HTTP ${res.status}`;
+    authCheck = `HTTP ${res.status}: ${(await res.text()).slice(0, 150)}`;
   } catch (e: any) {
-    keyCheck = `Error: ${e.message}`;
+    authCheck = `Error: ${e.message}`;
   }
 
   return NextResponse.json({
     url,
     keyPreview: maskedKey,
-    keyCheck,
+    authCheck,
   });
 }
