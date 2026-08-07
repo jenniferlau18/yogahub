@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useCallback } from "react";
 import Link from "next/link";
 import { useSearchParams, usePathname } from "next/navigation";
 import { signIn, signInWithGoogle } from "@/lib/auth/actions";
@@ -23,16 +22,8 @@ export function LoginForm() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const justSignedUp = searchParams.get("signup") === "success";
-  const [error, setError] = useState("");
+  const errorFromUrl = searchParams.get("error");
   const locale = pathname.startsWith("/en") ? "en" : "zh";
-
-  const handleSubmit = useCallback(async (formData: FormData) => {
-    setError("");
-    const result = await signIn(formData);
-    if (result?.error) {
-      setError(result.error);
-    }
-  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-[#FAFAF8]">
@@ -64,12 +55,20 @@ export function LoginForm() {
             </div>
           </div>
 
-          <form action={handleSubmit} className="space-y-4">
+          {/* Direct server action — locale via hidden input */}
+          <form action={signIn} className="space-y-4">
             <input type="hidden" name="locale" value={locale} />
             {justSignedUp && (
               <p className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
                 ✅ Account created! Please check your email for a confirmation
                 link, then sign in below.
+              </p>
+            )}
+
+            {/* Error from server action redirect */}
+            {errorFromUrl && (
+              <p className="text-sm text-red-500 bg-red-50 p-3 rounded-md">
+                {decodeURIComponent(errorFromUrl)}
               </p>
             )}
 
@@ -94,12 +93,6 @@ export function LoginForm() {
                 required
               />
             </div>
-
-            {error && (
-              <p className="text-sm text-red-500 bg-red-50 p-3 rounded-md">
-                {error}
-              </p>
-            )}
 
             <Button
               type="submit"

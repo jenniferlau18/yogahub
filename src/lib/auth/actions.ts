@@ -55,7 +55,7 @@ export async function signIn(formData: FormData) {
   });
 
   if (error) {
-    return { error: error.message };
+    redirect(`${localePath}/auth/login?error=${encodeURIComponent(error.message)}`);
   }
 
   // Manually set session cookies (authClient doesn't use @supabase/ssr)
