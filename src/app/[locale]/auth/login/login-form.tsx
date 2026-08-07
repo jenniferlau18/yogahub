@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { signIn, signInWithGoogle } from "@/lib/auth/actions";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -21,8 +21,10 @@ import {
 
 export function LoginForm() {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const justSignedUp = searchParams.get("signup") === "success";
   const [error, setError] = useState("");
+  const locale = pathname.startsWith("/en") ? "en" : "zh";
 
   const handleSubmit = useCallback(async (formData: FormData) => {
     setError("");
@@ -63,6 +65,7 @@ export function LoginForm() {
           </div>
 
           <form action={handleSubmit} className="space-y-4">
+            <input type="hidden" name="locale" value={locale} />
             {justSignedUp && (
               <p className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
                 ✅ Account created! Please check your email for a confirmation
