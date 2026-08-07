@@ -45,6 +45,8 @@ export async function signUp(formData: FormData) {
 export async function signIn(formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+  const locale = (formData.get("locale") as string) || "";
+  const localePath = locale === "en" ? "/en" : "";
   const supabase = authClient();
 
   const { data, error } = await supabase.auth.signInWithPassword({
