@@ -5,12 +5,12 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
 
-const getSupabaseUrl = () => process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const getSupabaseKey = () => process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const SUPABASE_URL = "https://dgjsyvgagwbzrsfwsxzj.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRnanN5dmdhZ3dienJzZndzeHpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwMDEyNTcsImV4cCI6MjEwMTU3NzI1N30.SyUuNw0Br25qjfQfxTMlQXSqGAE4nTgP4Y9KfIErOsY";
 
 /** Create a supabase-js admin-style client for auth operations */
 function authClient() {
-  return createClient(getSupabaseUrl(), getSupabaseKey(), {
+  return createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     auth: { autoRefreshToken: false, persistSession: false },
   });
 }
