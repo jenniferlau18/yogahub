@@ -108,5 +108,5 @@ export async function signOut() {
 
   await supabase.auth.signOut();
   revalidatePath("/", "layout");
-  redirect("/");
+  redirect("/"); // i18n middleware handles locale redirect
 }
