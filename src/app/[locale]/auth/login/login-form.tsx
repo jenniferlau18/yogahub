@@ -1,11 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useSearchParams, usePathname } from "next/navigation";
-import { signIn, signInWithGoogle } from "@/lib/auth/actions";
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const googleAction = signInWithGoogle as any;
+import Link from "next/link";
+import { signInWithGoogle } from "@/lib/auth/actions";
+import { loginUser } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,6 +15,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const googleAction = signInWithGoogle as any;
 
 export function LoginForm() {
   const searchParams = useSearchParams();
@@ -55,17 +56,15 @@ export function LoginForm() {
             </div>
           </div>
 
-          {/* Direct server action — locale via hidden input */}
-          <form action={signIn} className="space-y-4">
+          {/* Login form with inline server action */}
+          <form action={loginUser} className="space-y-4">
             <input type="hidden" name="locale" value={locale} />
             {justSignedUp && (
               <p className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
-                ✅ Account created! Please check your email for a confirmation
-                link, then sign in below.
+                ✅ Account created! You can now sign in below.
               </p>
             )}
 
-            {/* Error from server action redirect */}
             {errorFromUrl && (
               <p className="text-sm text-red-500 bg-red-50 p-3 rounded-md">
                 {decodeURIComponent(errorFromUrl)}

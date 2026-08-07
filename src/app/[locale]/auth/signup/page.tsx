@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
-import { signUp, signInWithGoogle } from "@/lib/auth/actions";
+import { signInWithGoogle } from "@/lib/auth/actions";
+import { createAccount } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -68,7 +69,7 @@ function SignUpForm() {
           </div>
 
           {/* Email signup — binds signUp directly, locale + role via hidden inputs */}
-          <form action={signUp} className="space-y-4">
+          <form action={createAccount} className="space-y-4">
             <input type="hidden" name="locale" value={locale} />
             {/* Full Name */}
             <div className="space-y-2">
