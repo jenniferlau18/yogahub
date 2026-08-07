@@ -42,6 +42,8 @@
     "copyright": "Built with 💚 for the yoga community."
   },
   "nav": {
+    "search": "Search",
+    "calendar": "Calendar",
     "studios": "Studios",
     "classes": "Classes",
     "myBookings": "My Bookings",

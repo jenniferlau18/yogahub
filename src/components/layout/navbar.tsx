@@ -31,6 +31,16 @@ export async function Navbar() {
           🧘 {t("appName")}
         </Link>
 
+        {/* Nav links */}
+        <nav className="hidden sm:flex items-center gap-1">
+          <Link href="/search">
+            <Button variant="ghost" size="sm">{t("nav.search")}</Button>
+          </Link>
+          <Link href="/calendar">
+            <Button variant="ghost" size="sm">{t("nav.calendar")}</Button>
+          </Link>
+        </nav>
+
         {/* Right side */}
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
