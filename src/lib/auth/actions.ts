@@ -18,11 +18,14 @@ export async function signUp(formData: FormData) {
   const referer = heads.get("referer") || "";
   const localePath = referer.includes("/en/") ? "/en" : "";
 
+  const siteUrl = "https://yogahub-chi.vercel.app";
+
   // Register the user with Supabase Auth
   const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
+      emailRedirectTo: `${siteUrl}/auth/callback`,
       data: {
         full_name: fullName,
         role: role,
