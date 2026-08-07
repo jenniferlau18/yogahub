@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useSearchParams, usePathname } from "next/navigation";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
 import { signInWithGoogle } from "@/lib/auth/actions";
-import { createAccount } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -25,16 +24,46 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// Use Google action directly on the form — same pattern as login
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const googleAction = signInWithGoogle as any;
 
 function SignUpForm() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const errorFromUrl = searchParams.get("error");
+  const router = useRouter();
   const [role, setRole] = useState("student");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const locale = pathname.startsWith("/en") ? "en" : "zh";
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const fullName = formData.get("full_name") as string;
+
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password, full_name: fullName, role }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      setError(data.error || "Signup failed");
+      setLoading(false);
+      return;
+    }
+
+    // Redirect to login with success message
+    const target = locale === "en" ? "/en/auth/login?signup=success" : "/auth/login?signup=success";
+    router.push(target);
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-[#FAFAF8]">
@@ -68,10 +97,11 @@ function SignUpForm() {
             </div>
           </div>
 
-          {/* Email signup — binds signUp directly, locale + role via hidden inputs */}
-          <form action={createAccount} className="space-y-4">
-            <input type="hidden" name="locale" value={locale} />
-            {/* Full Name */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <p className="text-sm text-red-500 bg-red-50 p-3 rounded-md">{error}</p>
+            )}
+
             <div className="space-y-2">
               <Label htmlFor="full_name">Full Name</Label>
               <Input
@@ -82,7 +112,6 @@ function SignUpForm() {
               />
             </div>
 
-            {/* Email */}
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -94,7 +123,6 @@ function SignUpForm() {
               />
             </div>
 
-            {/* Password */}
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <Input
@@ -107,7 +135,6 @@ function SignUpForm() {
               />
             </div>
 
-            {/* Role Selection — updates hidden input */}
             <div className="space-y-2">
               <Label>I am a...</Label>
               <Select value={role} onValueChange={(val) => setRole(val || "student")}>
@@ -123,18 +150,10 @@ function SignUpForm() {
                   </SelectItem>
                 </SelectContent>
               </Select>
-              <input type="hidden" name="role" value={role} />
             </div>
 
-            {/* Error from server action redirect */}
-            {errorFromUrl && (
-              <p className="text-sm text-red-500 bg-red-50 p-3 rounded-md">
-                {decodeURIComponent(errorFromUrl)}
-              </p>
-            )}
-
-            <Button type="submit" className="w-full bg-[#7C9082] hover:bg-[#6B7D71]">
-              Create Account
+            <Button type="submit" disabled={loading} className="w-full bg-[#7C9082] hover:bg-[#6B7D71]">
+              {loading ? "Creating account..." : "Create Account"}
             </Button>
           </form>
         </CardContent>

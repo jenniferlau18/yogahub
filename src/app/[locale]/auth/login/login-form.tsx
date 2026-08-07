@@ -1,9 +1,9 @@
 "use client";
 
-import { useSearchParams, usePathname } from "next/navigation";
+import { useState } from "react";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { signInWithGoogle } from "@/lib/auth/actions";
-import { loginUser } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -22,9 +22,42 @@ const googleAction = signInWithGoogle as any;
 export function LoginForm() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const router = useRouter();
   const justSignedUp = searchParams.get("signup") === "success";
   const errorFromUrl = searchParams.get("error");
   const locale = pathname.startsWith("/en") ? "en" : "zh";
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      setError(data.error || "Login failed");
+      setLoading(false);
+      return;
+    }
+
+    // Redirect on success
+    router.push(locale === "en" ? "/en" : "/");
+    router.refresh();
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-[#FAFAF8]">
@@ -56,18 +89,16 @@ export function LoginForm() {
             </div>
           </div>
 
-          {/* Login form with inline server action */}
-          <form action={loginUser} className="space-y-4">
-            <input type="hidden" name="locale" value={locale} />
+          <form onSubmit={handleSubmit} className="space-y-4">
             {justSignedUp && (
               <p className="text-sm text-green-600 bg-green-50 p-3 rounded-md">
                 ✅ Account created! You can now sign in below.
               </p>
             )}
 
-            {errorFromUrl && (
+            {(error || errorFromUrl) && (
               <p className="text-sm text-red-500 bg-red-50 p-3 rounded-md">
-                {decodeURIComponent(errorFromUrl)}
+                {error || decodeURIComponent(errorFromUrl!)}
               </p>
             )}
 
@@ -95,9 +126,10 @@ export function LoginForm() {
 
             <Button
               type="submit"
+              disabled={loading}
               className="w-full bg-[#7C9082] hover:bg-[#6B7D71]"
             >
-              Sign In
+              {loading ? "Signing in..." : "Sign In"}
             </Button>
           </form>
         </CardContent>
