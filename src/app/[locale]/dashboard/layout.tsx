@@ -53,6 +53,7 @@ export default async function DashboardLayout({
         <nav className="space-y-1 flex-1">
           <SidebarLink href="/dashboard">📊 Overview</SidebarLink>
           <SidebarLink href="/dashboard/studios/new">➕ Add Studio</SidebarLink>
+          <SidebarLink href="/dashboard/schedule">📅 Schedule</SidebarLink>
           <SidebarLink href="/dashboard/bookings">📋 Bookings</SidebarLink>
         </nav>
 
