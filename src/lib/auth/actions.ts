@@ -4,9 +4,10 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
-export async function signUp(formData: FormData) {
-  const supabase = await createClient();
+const AUTH_URL = "https://dgjsyvgagwbzrsfwsxzj.supabase.co/auth/v1";
+const AUTH_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRnanN5dmdhZ3dienJzZndzeHpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwMDEyNTcsImV4cCI6MjEwMTU3NzI1N30.SyUuNw0Br25qjfQfxTMlQXSqGAE4nTgP4Y9KfIErOsY";
 
+export async function signUp(formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const fullName = formData.get("full_name") as string;
@@ -16,21 +17,23 @@ export async function signUp(formData: FormData) {
 
   const siteUrl = "https://yogahub-chi.vercel.app";
 
-  // Register the user with Supabase Auth
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      emailRedirectTo: `${siteUrl}/auth/callback`,
-      data: {
-        full_name: fullName,
-        role: role,
-      },
+  // Use raw fetch to bypass @supabase/ssr env var issues
+  const res = await fetch(`${AUTH_URL}/signup`, {
+    method: "POST",
+    headers: {
+      apikey: AUTH_KEY,
+      "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      email,
+      password,
+      data: { full_name: fullName, role: role },
+    }),
   });
 
-  if (error) {
-    redirect(`${localePath}/auth/signup?error=${encodeURIComponent(error.message)}`);
+  if (!res.ok) {
+    const body = await res.json();
+    redirect(`${localePath}/auth/signup?error=${encodeURIComponent(body.msg || body.message || "Signup failed")}`);
   }
 
   // Redirect to login with a success message
